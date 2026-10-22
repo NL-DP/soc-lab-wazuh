@@ -1,0 +1,28 @@
+title: schtasks.exe usato per creare un'attività pianificata
+id: 16f20e54-28d4-4ee2-bf17-9437a4becba4
+status: experimental
+description: |
+  Traduzione della regola Wazuh 100012. schtasks.exe con /create nella riga di
+  comando (T1053.005). Provata su win-01 con il test Atomic Red Team T1053.005-2.
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+author: NL-DP
+date: 2026-10-21
+tags:
+  - attack.t1053.005
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_image:
+    Image|endswith: '\schtasks.exe'
+  selection_command:
+    CommandLine|re: '(?i)\s/create\b'
+  condition: selection_image and selection_command
+fields:
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Amministratori e software di installazione che creano attività pianificate
+level: high

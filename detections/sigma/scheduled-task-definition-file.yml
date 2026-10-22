@@ -1,0 +1,28 @@
+title: File di definizione di un'attività pianificata creato in System32\Tasks
+id: 9f386e21-8e9d-420b-a7f4-e951377ba162
+status: experimental
+description: |
+  Traduzione della regola Wazuh 100011. Qualunque metodo di creazione di un'attività
+  pianificata (schtasks, cmdlet PowerShell, WMI) termina con la scrittura di un file
+  in C:\Windows\System32\Tasks, fatta da svchost.exe. Livello medio perché anche
+  software legittimo crea attività (T1053.005).
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+author: NL-DP
+date: 2026-10-21
+tags:
+  - attack.t1053.005
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    TargetFilename|contains: '\Windows\System32\Tasks\'
+  condition: selection
+fields:
+  - TargetFilename
+  - Image
+  - User
+falsepositives:
+  - Installazione o aggiornamento di software legittimo che registra attività pianificate
+level: medium

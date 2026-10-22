@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-10-18T19:40:09.515+0200",
+  "rule": {
+    "level": 10,
+    "description": "wevtutil.exe used to clear an event log",
+    "id": "100014",
+    "mitre": {"id": ["T1070.001"], "tactic": ["Defense Evasion"], "technique": ["Clear Windows Event Logs"]},
+    "firedtimes": 1,
+    "groups": ["local", "windows", "log_clearing"]
+  },
+  "agent": {"id": "004", "name": "win-01", "ip": "10.0.2.15"},
+  "manager": {"name": "wazuh-mgr"},
+  "decoder": {"name": "windows_eventchannel"},
+  "data": {
+    "win": {
+      "system": {
+        "providerName": "Microsoft-Windows-Sysmon",
+        "eventID": "1",
+        "channel": "Microsoft-Windows-Sysmon/Operational",
+        "computer": "win-01",
+        "systemTime": "2026-10-18T17:40:08.9462499Z"
+      },
+      "eventdata": {
+        "processId": "8644",
+        "image": "C:\\\\Windows\\\\System32\\\\wevtutil.exe",
+        "commandLine": "\\\"C:\\\\WINDOWS\\\\system32\\\\wevtutil.exe\\\" cl Application",
+        "currentDirectory": "C:\\\\Users\\\\user\\\\Downloads\\\\",
+        "user": "WIN\\\\user",
+        "integrityLevel": "High",
+        "parentImage": "C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe"
+      }
+    }
+  },
+  "location": "EventChannel"
+}

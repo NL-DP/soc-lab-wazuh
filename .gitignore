@@ -1,0 +1,25 @@
+# segreti
+.env
+*.key
+*.pem
+*.pfx
+secrets*
+*password*
+*token*
+# binari e campioni: mai nel repo
+*.exe
+*.dll
+*.bin
+*.msi
+*.zip
+*.7z
+*.iso
+*.ova
+*.qcow2
+*.vmdk
+# dati grezzi con IP, host e utenti
+*.pcap
+*.pcapng
+*.log
+archives.json
+alerts.json

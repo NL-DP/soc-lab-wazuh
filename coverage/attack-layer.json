@@ -1,0 +1,93 @@
+{
+  "name": "soc-lab-wazuh: copertura",
+  "versions": {
+    "attack": "20",
+    "navigator": "5.1.0",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "Tecniche emulate in soc-lab-wazuh e come le rileva Wazuh 4.14.8. Azzurro: rilevata dalle regole di default. Verde: coperta da una regola mia. Le tecniche senza colore non le ho provate.",
+  "filters": {
+    "platforms": [
+      "Windows"
+    ]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": true,
+    "showName": true,
+    "showAggregateScores": false,
+    "countUnscored": false,
+    "expandedSubtechniques": "annotated"
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1059.001",
+      "score": 1,
+      "color": "#66b1ff",
+      "comment": "Rilevata dalle regole di default 92057, 92071, 92041. La 100010 riduce il falso positivo 92213, non rileva.",
+      "enabled": true,
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1053.005",
+      "score": 2,
+      "color": "#31a354",
+      "comment": "Nessun alert di default sulla creazione. Coperta dalle regole 100011 (livello 8) e 100012 (livello 10).",
+      "enabled": true,
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1547.001",
+      "score": 1,
+      "color": "#66b1ff",
+      "comment": "Rilevata dalla 92302 (livello 6); la 92041 è un falso positivo di classificazione.",
+      "enabled": true,
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1136.001",
+      "score": 1,
+      "color": "#66b1ff",
+      "comment": "Rilevata dalla 92040 (livello 12, solo test 4) e dalla 60109 (livello 8, entrambi i test).",
+      "enabled": true,
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1070.001",
+      "score": 2,
+      "color": "#31a354",
+      "comment": "Di default solo la 63104 a livello 5 sull'effetto. Alzata a 10 dalla 100013; il processo wevtutil.exe è coperto dalla 100014. Clear-EventLog di PowerShell coperto solo dalla 100013.",
+      "enabled": true,
+      "showSubtechniques": true
+    }
+  ],
+  "gradient": {
+    "colors": [
+      "#66b1ff",
+      "#31a354"
+    ],
+    "minValue": 1,
+    "maxValue": 2
+  },
+  "legendItems": [
+    {
+      "label": "Rilevata dalle regole di default di Wazuh",
+      "color": "#66b1ff"
+    },
+    {
+      "label": "Coperta da una regola mia (lacuna chiusa)",
+      "color": "#31a354"
+    }
+  ],
+  "metadata": [],
+  "links": [],
+  "showTacticRowBackground": false,
+  "tacticRowBackground": "#dddddd",
+  "selectTechniquesAcrossTactics": true,
+  "selectSubtechniquesWithParent": false,
+  "selectVisibleTechniques": false
+}

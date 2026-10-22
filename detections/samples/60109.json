@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-10-18T19:28:33.652+0200",
+  "rule": {
+    "level": 8,
+    "description": "User account enabled or created",
+    "id": "60109",
+    "mitre": {"id": ["T1098"], "tactic": ["Persistence"], "technique": ["Account Manipulation"]},
+    "firedtimes": 1,
+    "groups": ["windows", "windows_security", "adduser", "account_changed"]
+  },
+  "agent": {"id": "004", "name": "win-01", "ip": "10.0.2.15"},
+  "manager": {"name": "wazuh-mgr"},
+  "decoder": {"name": "windows_eventchannel"},
+  "data": {
+    "win": {
+      "system": {
+        "providerName": "Microsoft-Windows-Security-Auditing",
+        "eventID": "4720",
+        "channel": "Security",
+        "computer": "win-01",
+        "systemTime": "2026-10-18T17:28:25.8296695Z",
+        "severityValue": "AUDIT_SUCCESS"
+      },
+      "eventdata": {
+        "targetUserName": "T1136.001_CMD",
+        "targetDomainName": "WIN",
+        "subjectUserName": "user",
+        "subjectDomainName": "WIN",
+        "samAccountName": "T1136.001_CMD",
+        "primaryGroupId": "513",
+        "oldUacValue": "0x0",
+        "newUacValue": "0x15"
+      }
+    }
+  },
+  "location": "EventChannel"
+}

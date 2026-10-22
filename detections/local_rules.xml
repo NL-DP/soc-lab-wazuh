@@ -1,0 +1,71 @@
+<!-- Regole personalizzate del lab. ID personalizzati: 100000 - 120000.
+     Il file di default di Wazuh usa già 100001 (esempio sshd): qui si parte da 100010. -->
+<group name="local,sysmon,windows,">
+
+  <!-- Riduzione di un falso positivo: PowerShell crea a ogni avvio il file
+       __PSScriptPolicyTest_<casuale>.<casuale>.ps1 in %TEMP%. La regola 92213
+       (livello 15, T1105) lo segnala come eseguibile scaricato.
+       Regola stretta: solo powershell.exe e solo questo nome di file; gli altri
+       .ps1 in %TEMP% continuano a dare 92213. -->
+  <rule id="100010" level="3">
+    <if_sid>92213</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)powershell\.exe$</field>
+    <field name="win.eventdata.targetFilename" type="pcre2">__PSScriptPolicyTest_[a-z0-9]+\.[a-z0-9]+\.ps1$</field>
+    <description>PowerShell script policy test file created in Temp (benign, tuned down from 92213)</description>
+  </rule>
+
+</group>
+
+<group name="local,sysmon,windows,scheduled_task,">
+
+  <!-- T1053.005: qualunque metodo (schtasks, cmdlet PowerShell, WMI) termina con la
+       scrittura del file di definizione in System32\Tasks. Le regole di default non
+       lo segnalano. Livello 8: anche software legittimo crea attivita'. -->
+  <rule id="100011" level="8">
+    <if_group>sysmon_event_11</if_group>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\+Windows\\+System32\\+Tasks\\+</field>
+    <description>Scheduled task definition file created: $(win.eventdata.targetFilename)</description>
+    <mitre>
+      <id>T1053.005</id>
+    </mitre>
+  </rule>
+
+  <!-- T1053.005: creazione esplicita da riga di comando. -->
+  <rule id="100012" level="10">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\+schtasks\.exe$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)\s/create\b</field>
+    <description>schtasks.exe used to create a scheduled task</description>
+    <mitre>
+      <id>T1053.005</id>
+    </mitre>
+  </rule>
+
+</group>
+
+<group name="local,windows,log_clearing,">
+
+  <!-- T1070.001: la regola di default 63104 rileva la cancellazione di un log
+       (System 104 / Security 1102) ma a livello 5. Un log cancellato e' un
+       indicatore forte di anti-forensics: alzato a 10. -->
+  <rule id="100013" level="10">
+    <if_sid>63104</if_sid>
+    <description>Windows log file cleared (raised from 63104): $(win.logFileCleared.channel) by $(win.logFileCleared.subjectUserName)</description>
+    <mitre>
+      <id>T1070.001</id>
+    </mitre>
+  </rule>
+
+  <!-- T1070.001: il processo wevtutil.exe con "cl"/"clear-log" non genera
+       alcun alert di default, anche se Sysmon lo registra (EID 1). -->
+  <rule id="100014" level="10">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\+wevtutil\.exe$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)\s(cl|clear-log)\b</field>
+    <description>wevtutil.exe used to clear an event log</description>
+    <mitre>
+      <id>T1070.001</id>
+    </mitre>
+  </rule>
+
+</group>

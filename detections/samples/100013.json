@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-10-18T19:40:08.529+0200",
+  "rule": {
+    "level": 10,
+    "description": "Windows log file cleared (raised from 63104): Application by user",
+    "id": "100013",
+    "mitre": {"id": ["T1070.001"], "tactic": ["Defense Evasion"], "technique": ["Clear Windows Event Logs"]},
+    "firedtimes": 1,
+    "groups": ["local", "windows", "log_clearing"]
+  },
+  "agent": {"id": "004", "name": "win-01", "ip": "10.0.2.15"},
+  "manager": {"name": "wazuh-mgr"},
+  "decoder": {"name": "windows_eventchannel"},
+  "data": {
+    "win": {
+      "system": {
+        "providerName": "Microsoft-Windows-Eventlog",
+        "eventID": "104",
+        "channel": "System",
+        "computer": "win-01",
+        "systemTime": "2026-10-18T17:40:08.9621724Z"
+      },
+      "logFileCleared": {
+        "subjectUserName": "user",
+        "subjectDomainName": "WIN",
+        "channel": "Application",
+        "clientProcessId": "8644"
+      }
+    }
+  },
+  "location": "EventChannel"
+}

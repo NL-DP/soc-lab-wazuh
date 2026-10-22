@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-10-18T19:28:33.407+0200",
+  "rule": {
+    "level": 12,
+    "description": "net1.exe executed a user creation command",
+    "id": "92040",
+    "mitre": {"id": ["T1136.001"], "tactic": ["Persistence"], "technique": ["Local Account"]},
+    "firedtimes": 1,
+    "groups": ["sysmon", "sysmon_eid1_detections", "windows"]
+  },
+  "agent": {"id": "004", "name": "win-01", "ip": "10.0.2.15"},
+  "manager": {"name": "wazuh-mgr"},
+  "decoder": {"name": "windows_eventchannel"},
+  "data": {
+    "win": {
+      "system": {
+        "providerName": "Microsoft-Windows-Sysmon",
+        "eventID": "1",
+        "channel": "Microsoft-Windows-Sysmon/Operational",
+        "computer": "win-01",
+        "systemTime": "2026-10-18T17:28:25.8100737Z"
+      },
+      "eventdata": {
+        "image": "C:\\\\Windows\\\\System32\\\\net1.exe",
+        "commandLine": "C:\\\\WINDOWS\\\\system32\\\\net1  user /add \\\"T1136.001_CMD\\\" \\\"T1136.001_CMD!\\\"",
+        "currentDirectory": "C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\",
+        "user": "WIN\\\\user",
+        "integrityLevel": "High",
+        "parentImage": "C:\\\\Windows\\\\System32\\\\net.exe",
+        "parentCommandLine": "net  user /add \\\"T1136.001_CMD\\\" \\\"T1136.001_CMD!\\\""
+      }
+    }
+  },
+  "location": "EventChannel"
+}

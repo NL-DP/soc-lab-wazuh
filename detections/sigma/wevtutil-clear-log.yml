@@ -1,0 +1,29 @@
+title: wevtutil.exe usato per cancellare un registro eventi
+id: 99437670-e331-41a4-9563-d240e3784ce1
+status: experimental
+description: |
+  Traduzione della regola Wazuh 100014. wevtutil.exe con il comando cl o clear-log
+  cancella un registro eventi di Windows (T1070.001). Provata su win-01 con
+  'wevtutil.exe cl Application'.
+references:
+  - https://attack.mitre.org/techniques/T1070/001/
+author: NL-DP
+date: 2026-10-21
+tags:
+  - attack.t1070.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_image:
+    Image|endswith: '\wevtutil.exe'
+  selection_command:
+    CommandLine|re: '(?i)\s(cl|clear-log)\b'
+  condition: selection_image and selection_command
+fields:
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Un amministratore che svuota un registro di proposito
+level: high

@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-10-18T19:05:18.925+0200",
+  "rule": {
+    "level": 10,
+    "description": "schtasks.exe used to create a scheduled task",
+    "id": "100012",
+    "mitre": {"id": ["T1053.005"], "tactic": ["Execution", "Persistence", "Privilege Escalation"], "technique": ["Scheduled Task"]},
+    "firedtimes": 1,
+    "groups": ["local", "sysmon", "windows", "scheduled_task"]
+  },
+  "agent": {"id": "004", "name": "win-01", "ip": "10.0.2.15"},
+  "manager": {"name": "wazuh-mgr"},
+  "decoder": {"name": "windows_eventchannel"},
+  "data": {
+    "win": {
+      "system": {
+        "providerName": "Microsoft-Windows-Sysmon",
+        "eventID": "1",
+        "channel": "Microsoft-Windows-Sysmon/Operational",
+        "computer": "win-01",
+        "systemTime": "2026-10-18T17:04:34.2341004Z"
+      },
+      "eventdata": {
+        "image": "C:\\\\Windows\\\\System32\\\\schtasks.exe",
+        "commandLine": "SCHTASKS  /Create /SC ONCE /TN spawn /TR C:\\\\windows\\\\system32\\\\cmd.exe /ST 20:10",
+        "currentDirectory": "C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\",
+        "user": "WIN\\\\user",
+        "integrityLevel": "High",
+        "parentImage": "C:\\\\Windows\\\\System32\\\\cmd.exe",
+        "parentCommandLine": "\\\"cmd.exe\\\" /c SCHTASKS /Create /SC ONCE /TN spawn /TR C:\\\\windows\\\\system32\\\\cmd.exe /ST 20:10"
+      }
+    }
+  },
+  "location": "EventChannel"
+}

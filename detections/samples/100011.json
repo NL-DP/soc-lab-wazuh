@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-10-18T19:05:18.940+0200",
+  "rule": {
+    "level": 8,
+    "description": "Scheduled task definition file created: C:\\\\Windows\\\\System32\\\\Tasks\\\\spawn",
+    "id": "100011",
+    "mitre": {"id": ["T1053.005"], "tactic": ["Execution", "Persistence", "Privilege Escalation"], "technique": ["Scheduled Task"]},
+    "firedtimes": 1,
+    "groups": ["local", "sysmon", "windows", "scheduled_task"]
+  },
+  "agent": {"id": "004", "name": "win-01", "ip": "10.0.2.15"},
+  "manager": {"name": "wazuh-mgr"},
+  "decoder": {"name": "windows_eventchannel"},
+  "data": {
+    "win": {
+      "system": {
+        "providerName": "Microsoft-Windows-Sysmon",
+        "eventID": "11",
+        "channel": "Microsoft-Windows-Sysmon/Operational",
+        "computer": "win-01",
+        "systemTime": "2026-10-18T17:04:34.2512751Z"
+      },
+      "eventdata": {
+        "ruleName": "T1053",
+        "image": "C:\\\\WINDOWS\\\\system32\\\\svchost.exe",
+        "targetFilename": "C:\\\\Windows\\\\System32\\\\Tasks\\\\spawn",
+        "user": "NT AUTHORITY\\\\SYSTEM"
+      }
+    }
+  },
+  "location": "EventChannel"
+}

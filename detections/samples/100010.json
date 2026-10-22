@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-10-18T18:42:09.063+0200",
+  "rule": {
+    "level": 3,
+    "description": "PowerShell script policy test file created in Temp (benign, tuned down from 92213)",
+    "id": "100010",
+    "firedtimes": 1,
+    "groups": ["local", "sysmon", "windows"]
+  },
+  "agent": {"id": "004", "name": "win-01", "ip": "10.0.2.15"},
+  "manager": {"name": "wazuh-mgr"},
+  "decoder": {"name": "windows_eventchannel"},
+  "data": {
+    "win": {
+      "system": {
+        "providerName": "Microsoft-Windows-Sysmon",
+        "eventID": "11",
+        "channel": "Microsoft-Windows-Sysmon/Operational",
+        "computer": "win-01",
+        "systemTime": "2026-10-18T16:41:59.9363819Z"
+      },
+      "eventdata": {
+        "image": "C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe",
+        "targetFilename": "C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\__PSScriptPolicyTest_0vscas4l.zwx.ps1",
+        "user": "WIN\\\\user"
+      }
+    }
+  },
+  "location": "EventChannel"
+}
